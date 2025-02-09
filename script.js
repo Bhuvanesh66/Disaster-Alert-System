@@ -230,3 +230,12 @@ searchInput.addEventListener("keyup", (event) => {
     searchRegion();
   }
 });
+
+
+document.querySelector("#refreshBtn").addEventListener("click" ,function(){
+  refreshPage();
+})
+
+document.querySelector("#searchBtn").addEventListener("click" , function(){
+  searchRegion();
+})
