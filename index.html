@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disaster Alert System</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="./style.css" rel="stylesheet">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=YOUR_API_KEY_FROM_CONFIG"></script>
+    <script src="./config.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <h1><i class="fas fa-exclamation-triangle" aria-hidden="true"></i> Disaster Alert System</h1>
+                <nav class="header-controls">
+                    <div class="search-container">
+                        <input type="text" id="search" placeholder="Search locations" aria-label="Search locations">
+                        <button id="searchButton" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></button>
+                        <button id="refreshButton" class="refresh-btn" aria-label="Refresh page"><i class="fas fa-sync-alt" aria-hidden="true"></i></button>
+                    </div>
+                    <div class="counts">
+                        <div class="notification-badge" id="notificationBadge" aria-live="polite">0</div>
+                    </div>
+                </nav>
+            </div>
+        </header>
+        
+        <div class="alert-banner" id="alertBanner" role="alert">
+            <div class="banner-content">
+                <i class="fas fa-bell" aria-hidden="true"></i>
+                <span id="bannerText"></span>
+                <button class="banner-close" id="bannerCloseBtn" aria-label="Close alert">&times;</button>
+            </div>
+        </div>
+        
+        <main class="main-content">
+            <aside class="alerts-panel">
+                <h2>Recent Alerts</h2>
+                <div id="alertsList" role="log" aria-live="polite"></div>
+            </aside>
+            <section id="map" aria-label="Map showing disaster alerts"></section>
+        </main>
+    </div>
+    <script src="./script.js"></script>
+</body>
+</html>
