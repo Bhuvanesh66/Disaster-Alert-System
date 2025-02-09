@@ -1,48 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Meta tags for character set and responsive design -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Page title -->
     <title>Disaster Alert System</title>
+    
+    <!-- Font Awesome icons for visual elements -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- External stylesheet for custom styling -->
     <link href="./style.css" rel="stylesheet">
+    
+    <!-- Google Maps API for displaying map -->
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=YOUR_API_KEY_FROM_CONFIG"></script>
+    
+    <!-- Custom configuration script -->
     <script src="./config.js"></script>
 </head>
 <body>
+    <!-- Main container of the website -->
     <div class="container">
+        <!-- Header section with site title and controls -->
         <header>
             <div class="header-content">
+                <!-- Title of the website with an exclamation icon -->
                 <h1><i class="fas fa-exclamation-triangle" aria-hidden="true"></i> Disaster Alert System</h1>
+                
+                <!-- Navigation controls (search and refresh) -->
                 <nav class="header-controls">
                     <div class="search-container">
+                        <!-- Search input for searching locations -->
                         <input type="text" id="search" placeholder="Search locations" aria-label="Search locations">
+                        
+                        <!-- Search button with a magnifying glass icon -->
                         <button id="searchBtn" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></button>
+                        
+                        <!-- Refresh button with a sync icon to refresh the page -->
                         <button id="refreshBtn" class="refresh-btn" aria-label="Refresh page"><i class="fas fa-sync-alt" aria-hidden="true"></i></button>
                     </div>
+                    
+                    <!-- Notification count badge -->
                     <div class="counts">
-                        <div class="notification-badge" id="notificationBadge" aria-live="polite">0</div>
+                        <div class="notification-badge" id="notificationBadge" aria-live="polite">Alerts : 0</div>
                     </div>
                 </nav>
             </div>
         </header>
         
+        <!-- Alert banner section that displays alerts to the user -->
         <div class="alert-banner" id="alertBanner" role="alert">
             <div class="banner-content">
+                <!-- Bell icon to indicate an alert -->
                 <i class="fas fa-bell" aria-hidden="true"></i>
+                
+                <!-- Text that displays the content of the alert -->
                 <span id="bannerText"></span>
+                
+                <!-- Close button for the alert banner -->
                 <button class="banner-close" id="bannerCloseBtn" aria-label="Close alert">&times;</button>
             </div>
         </div>
         
+        <!-- Main content area containing the alerts and map -->
         <main class="main-content">
+            <!-- Sidebar panel to display recent alerts -->
             <aside class="alerts-panel">
                 <h2>Recent Alerts</h2>
+                <!-- Placeholder for dynamically added alert items -->
                 <div id="alertsList" role="log" aria-live="polite"></div>
             </aside>
+            
+            <!-- Map section where disaster alerts will be shown -->
             <section id="map" aria-label="Map showing disaster alerts"></section>
         </main>
     </div>
+    
+    <!-- Custom script for handling the disaster alert system functionality -->
     <script src="./script.js"></script>
 </body>
 </html>

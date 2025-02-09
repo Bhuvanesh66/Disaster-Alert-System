@@ -220,6 +220,7 @@ header {
 
 /* Responsive Design
 ============================================ */
+
 @media (max-width: 900px) {
     .main-content {
         grid-template-columns: 1fr;
@@ -229,10 +230,10 @@ header {
         margin-bottom: var(--spacing-md);
     }
 }
-
+ /* Adjust spacing for mobile */
 @media (max-width: 610px) {
     :root {
-        /* Adjust spacing for mobile */
+       
         --spacing-lg: 1rem;
         --spacing-md: 0.75rem;
     }
@@ -258,7 +259,7 @@ header {
         text-align: center;
     }
 }
-
+/* Adjusting the height here */
 @media (max-height: 500px) and (orientation: landscape) {
     .main-content {
         grid-template-rows: auto 70vh;
