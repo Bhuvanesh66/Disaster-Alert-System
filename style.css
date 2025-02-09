@@ -95,7 +95,7 @@ header {
     display: flex;
     align-items: center;
     gap: var(--spacing-md);
-    width: 100%;
+    width: auto;
     justify-content: space-between;
 }
 
@@ -103,7 +103,11 @@ header {
 ============================================ */
 .search-container {
     display: flex;
-    gap: var(--spacing-sm);
+        align-items: center;
+        gap: var(--spacing-sm);
+        flex: 1;
+        /* Takes available space but doesn't expand too much */
+        max-width: 600px;/* Prevents search from becoming too wide */
 }
 
 .search-container input {
@@ -122,6 +126,7 @@ header {
     border-radius: var(--radius-lg);
     cursor: pointer;
     transition: all 0.3s ease;
+    flex-shrink: 0; /* Prevents buttons from shrinking */
 }
 
 .search-container button {
@@ -204,9 +209,11 @@ header {
 .notification-badge {
     background: var(--color-danger);
     color: var(--color-white);
-    padding: var(--spacing-xs) var(--spacing-md);
+    padding: var(--spacing-xs) var(--spacing-sm);
     border-radius: var(--radius-lg);
     font-size: 0.9rem;
+    margin-left: var(--spacing-sm);
+    white-space: nowrap;/* Prevents breaking into multiple lines */
 }
 
 .refresh-btn {
@@ -229,6 +236,23 @@ header {
     .alerts-panel {
         margin-bottom: var(--spacing-md);
     }
+        .header-controls {
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: var(--spacing-sm);
+        }
+    
+        .search-container {
+            flex: 0 1 auto;
+            /* Don't grow, can shrink, auto basis */
+            min-width: 200px;
+            /* Minimum width for search container */
+        }
+    
+        .notification-badge {
+            margin-left: 0;
+            /* Remove margin when wrapped */
+        }
 }
  /* Adjust spacing for mobile */
 @media (max-width: 610px) {
@@ -258,6 +282,16 @@ header {
     .alert-item {
         text-align: center;
     }
+        .search-container input {
+            width: 150px;
+            /* Smaller width on mobile */
+        }
+    
+        .notification-badge {
+            font-size: 0.8rem;
+            /* Slightly smaller text on mobile */
+            padding: var(--spacing-xs) var(--spacing-sm);
+        }
 }
 /* Adjusting the height here */
 @media (max-height: 500px) and (orientation: landscape) {
