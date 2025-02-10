@@ -4,26 +4,58 @@ let alertColor = [];
 const alertsList = document.getElementById("alertsList");
 const alertBanner = document.getElementById("alertBanner");
 
+// Add loading spinner element to track loading state
+const loadingSpinner = document.createElement("div");
+loadingSpinner.className = "loading-spinner";
+loadingSpinner.innerHTML = `
+  <div class="spinner"></div>
+  <p>Loading disaster alerts...</p>
+`;
+document.body.appendChild(loadingSpinner);
+
+// Show loading spinner
+function showLoading() {
+  loadingSpinner.style.display = "flex";
+  // Disable UI elements while loading
+  document.getElementById("searchBtn").disabled = true;
+  document.getElementById("refreshBtn").disabled = true;
+  document.getElementById("search").disabled = true;
+}
+
+// Hide loading spinner
+function hideLoading() {
+  loadingSpinner.style.display = "none";
+  // Re-enable UI elements after loading
+  document.getElementById("searchBtn").disabled = false;
+  document.getElementById("refreshBtn").disabled = false;
+  document.getElementById("search").disabled = false;
+}
+
 // Initialize Google Map
 function initMap() {
-  // Load Google Maps with API key from config
+  showLoading(); // Show loading while map initializes
   const script = document.createElement("script");
   script.src = `https://maps.googleapis.com/maps/api/js?key=${config.GOOGLE_MAPS_API_KEY}&libraries=geometry`;
   document.head.appendChild(script);
 
   script.onload = () => {
-    // Create the map with default settings
     map = new google.maps.Map(document.getElementById("map"), {
       zoom: 2,
-      center: { lat: 0, lng: 0 }, // Default map center at global level
+      center: { lat: 0, lng: 0 },
     });
+    fetchDisasterAlerts(); // Fetch alerts after map loads
+  };
+
+  script.onerror = () => {
+    console.error("Failed to load Google Maps");
+    hideLoading();
   };
 }
 
 // Fetch disaster alerts
 async function fetchDisasterAlerts() {
+  showLoading(); // Show loading while fetching alerts
   try {
-    // Make request to GDACS API (through proxy to avoid CORS issues)
     const response = await fetch(
       `${config.PROXY_URL}${encodeURIComponent(config.GDACS_API_URL)}`
     );
@@ -32,18 +64,18 @@ async function fetchDisasterAlerts() {
     const xmlDoc = parser.parseFromString(text, "text/xml");
     const items = xmlDoc.getElementsByTagName("item");
 
-    // Map alert levels to colors
     alertColor = Array.from(items).map(
       (item) => item.getElementsByTagName("gdacs:alertlevel")[0].textContent
     );
 
-    // Process the alerts for display
     processAlerts(items);
   } catch (error) {
     console.error("Error fetching alerts:", error);
+    alertBanner.textContent = "Error loading alerts. Please try again.";
+  } finally {
+    hideLoading(); // Hide loading regardless of success/failure
   }
 }
-
 // Process and display alerts
 function processAlerts(items) {
   alertsList.innerHTML = ""; // Clear existing alerts
@@ -251,3 +283,13 @@ document.querySelector("#refreshBtn").addEventListener("click", function () {
 document.querySelector("#searchBtn").addEventListener("click", function () {
   searchRegion(); // Perform search when clicked
 });
+
+// Initialize and set up intervals
+document.addEventListener("DOMContentLoaded", () => {
+  initMap();
+  // Update interval with loading indicators
+  setInterval(async () => {
+    await fetchDisasterAlerts();
+  }, config.UPDATE_INTERVAL);
+});
+
