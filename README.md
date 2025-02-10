@@ -3,7 +3,7 @@
 A real-time web application that displays and tracks global disaster alerts using the GDACS (Global Disaster Alert and Coordination System) API. The system provides an interactive map interface to visualize disaster locations and their severity levels worldwide.
 
 ## 🌐 Live Demo
-[Disaster Alert System](https://bhuvanesh66.github.io/Disaster-Alert-System/)
+[Disaster Alert System](https://disaster-alert-system-6u3x.onrender.com)
 
 ## ✨ Features
 
